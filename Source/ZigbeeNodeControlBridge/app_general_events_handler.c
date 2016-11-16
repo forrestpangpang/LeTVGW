@@ -607,6 +607,7 @@ PUBLIC void APP_vHandleStackEvents ( ZPS_tsAfEvent*    psStackEvent )
                     case ZPS_ZDP_SIMPLE_DESC_RSP_CLUSTER_ID:
                     {
                         uint8    i =  0;
+			uint8    j =  0;
                         ZNC_BUF_U8_UPD   ( &au8StatusBuffer [u16Length] , sApsZdpEvent.uZdpData.sSimpleDescRsp.u8Status,                                     u16Length );
                         ZNC_BUF_U16_UPD  ( &au8StatusBuffer [u16Length] , sApsZdpEvent.uZdpData.sSimpleDescRsp.u16NwkAddrOfInterest,                         u16Length );
                         ZNC_BUF_U8_UPD   ( &au8StatusBuffer [u16Length] , sApsZdpEvent.uZdpData.sSimpleDescRsp.u8Length,                                     u16Length );
@@ -621,10 +622,11 @@ PUBLIC void APP_vHandleStackEvents ( ZPS_tsAfEvent*    psStackEvent )
                             i++;
                         }
                         ZNC_BUF_U8_UPD   ( &au8StatusBuffer [u16Length] , sApsZdpEvent.uZdpData.sSimpleDescRsp.sSimpleDescriptor.u8OutClusterCount,    u16Length );
-                        i =  0;
+                        j = i;
+			i =  0;
                         while ( i < sApsZdpEvent.uZdpData.sSimpleDescRsp.sSimpleDescriptor.u8OutClusterCount )
                         {
-                            ZNC_BUF_U16_UPD  ( &au8StatusBuffer [u16Length] , sApsZdpEvent.uLists.au16Data [ i ],         u16Length );
+                            ZNC_BUF_U16_UPD  ( &au8StatusBuffer [u16Length] , sApsZdpEvent.uLists.au16Data [ i + j],         u16Length );
                             i++;
                         }
 
